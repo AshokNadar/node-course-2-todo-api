@@ -6,6 +6,7 @@ var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {Users} = require('./models/user');
 
+const port = process.env.PORT || 3000;
 var app = express();
 app.use(bodyParser.json());
 
@@ -44,8 +45,8 @@ app.get('/todos/:id',(req,res) => {
         res.status(400).send();
     });
 });
-app.listen(3000,()=>{
-    console.log('starting at port number 3000');
+app.listen(port,()=>{
+    console.log(`starting at port number ${port}`);
     
 });
 
