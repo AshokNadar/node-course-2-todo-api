@@ -7,6 +7,7 @@ const _= require('lodash');
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {Users} = require('./models/user');
+var {authenticate} = require('./midleware/authenticate')
 
 const port = process.env.PORT || 3000;
 var app = express();
@@ -101,6 +102,10 @@ app.post('/users',(req,res)=>{
 
 });
 
+app.get('/users/me',authenticate,(req,res)=>{
+  res.send(req.user);
+});
+
 app.listen(port,()=>{
     console.log(`starting at port number ${port}`);
     
@@ -108,13 +113,3 @@ app.listen(port,()=>{
 
 
 module.exports = {app};
-// var newTodo = new Todo({
-//     text:'cook dinner'
-// });
-// newTodo.save().then((doc) =>{
-//     console.log('saved todos',doc);
-    
-// },(e)=>{
-//     console.log('unable to save todo');
-    
-// })
